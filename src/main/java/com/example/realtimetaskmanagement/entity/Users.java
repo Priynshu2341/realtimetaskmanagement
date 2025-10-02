@@ -1,5 +1,8 @@
 package com.example.realtimetaskmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +38,7 @@ public class Users implements UserDetails {
     private String refreshToken;
 
     @OneToMany(mappedBy = "createdBy")
+    @JsonIgnore
     private List<Project> projectsCreated = new ArrayList<>();
 
     @OneToMany(mappedBy = "assignee")

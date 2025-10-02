@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class AuthController {
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody Users users) {
         userService.createUser(users);
-        return ResponseEntity.ok(new UserDTO(users.getUsername(), users.getEmail()));
+        return ResponseEntity.ok("User Creation Success");
     }
 
     @PostMapping("/login")
@@ -69,6 +71,31 @@ public class AuthController {
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something Went Wrong");
+        }
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestBody Map<String, String> request) throws Exception {
+        try {
+            String refreshToken = request.get("refreshToken");
+            if (refreshToken == null) throw new Exception("refresh Token Not Found");
+
+            if (!jwtUtils.validateToken(refreshToken)) {
+                throw new Exception("Invalid Refresh Token");
+            }
+            String username = jwtUtils.extractUsername(refreshToken);
+
+            Users user = userService.getUserByUsername(username);
+            if (!refreshToken.equals(user.getRefreshToken())) {
+                throw new Exception("Invalid refresh token");
+            }
+
+            String accessToken = jwtUtils.generateToken(user);
+            userService.saveUser(user);
+            return ResponseEntity.ok().body(new LoginResponseDTO(accessToken, refreshToken));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Invalid Username or Password " + e.getMessage());
         }
     }
 

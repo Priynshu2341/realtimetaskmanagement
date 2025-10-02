@@ -1,5 +1,9 @@
 package com.example.realtimetaskmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,6 +33,7 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "createdBy")
+    @JsonIgnore
     private Users createdBy;
 
     @OneToMany(mappedBy = "project",cascade = CascadeType.ALL ,orphanRemoval = true)
