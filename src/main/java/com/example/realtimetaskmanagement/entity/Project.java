@@ -40,6 +40,7 @@ public class Project {
     private List<ProjectMembers> members = new ArrayList<>();
 
     @OneToMany
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 
 

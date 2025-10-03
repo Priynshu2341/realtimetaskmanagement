@@ -1,5 +1,6 @@
 package com.example.realtimetaskmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "assignee_id")
+    @JsonIgnore
     private Users assignee;
 
     @ManyToOne

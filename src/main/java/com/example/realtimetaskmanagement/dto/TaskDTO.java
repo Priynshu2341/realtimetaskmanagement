@@ -1,5 +1,6 @@
 package com.example.realtimetaskmanagement.dto;
 
+import com.example.realtimetaskmanagement.entity.Users;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,9 +9,5 @@ import java.time.LocalDateTime;
 public class TaskDTO {
     private String title;
     private String description;
-    private String status;
-    private String priority;
-    private LocalDateTime dueDate;
-    private Long assigneeId;
-    private Long projectId;
+    private String username;
 }

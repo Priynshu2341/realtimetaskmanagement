@@ -1,29 +1,30 @@
 package com.example.realtimetaskmanagement.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "project_members")
 @Data
-@NoArgsConstructor
-public class ProjectMembers {
+public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    @JsonIgnore
-    private Project project;
+    private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private Task task;
+
+    @ManyToOne
     @JsonIgnore
     private Users users;
 
-    private RoleType roleType = RoleType.USER;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
