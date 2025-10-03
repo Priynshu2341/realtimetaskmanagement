@@ -1,10 +1,10 @@
-package com.example.realtimetaskmanagement.controller;
+package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 import com.example.realtimetaskmanagement.dto.ProjectDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Users;
-import com.example.realtimetaskmanagement.service.ProjectService;
-import com.example.realtimetaskmanagement.service.UserService;
+import com.example.realtimetaskmanagement.service.normalservices.ProjectService;
+import com.example.realtimetaskmanagement.service.normalservices.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

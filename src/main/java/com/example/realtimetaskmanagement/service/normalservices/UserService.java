@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.service;
+package com.example.realtimetaskmanagement.service.normalservices;
 
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.reps.UserRepository;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +28,13 @@ public class UserService {
     public Users getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User Not Found With This Email"));
     }
-    public void saveUser(Users user){
+
+    public void saveUser(Users user) {
         userRepository.save(user);
+    }
+
+    public List<Users> findAllUsers(){
+        return userRepository.findAll();
     }
 
 

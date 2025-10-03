@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.service;
+package com.example.realtimetaskmanagement.service.normalservices;
 
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Task;
@@ -50,6 +50,21 @@ public class TaskService {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Invalid Task Id"));
         taskRepository.delete(task);
+    }
+
+    public List<Task> filter(Task.Status status, Task.Priority priority, String username) {
+        if (status != null) {
+            return taskRepository.findByStatus(status);
+        }
+        if (priority != null) {
+            return taskRepository.findByPriority(priority);
+        }
+        if (username != null) {
+            Users user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            return taskRepository.findByAssignee(user);
+        }
+        return taskRepository.findAll();
     }
 
 

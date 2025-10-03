@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.service;
+package com.example.realtimetaskmanagement.service.normalservices;
 
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.reps.ProjectRepository;

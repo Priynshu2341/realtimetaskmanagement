@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.controller;
+package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 import com.example.realtimetaskmanagement.dto.CommentDTO;
 import com.example.realtimetaskmanagement.dto.CommentResponseDTO;
@@ -6,15 +6,13 @@ import com.example.realtimetaskmanagement.entity.Comment;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.reps.CommentRepository;
 import com.example.realtimetaskmanagement.reps.UserRepository;
-import com.example.realtimetaskmanagement.service.CommentService;
+import com.example.realtimetaskmanagement.service.normalservices.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comment")

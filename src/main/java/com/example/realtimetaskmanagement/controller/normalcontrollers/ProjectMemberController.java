@@ -1,11 +1,9 @@
-package com.example.realtimetaskmanagement.controller;
+package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 import com.example.realtimetaskmanagement.dto.ProjectMemberDTO;
-import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.ProjectMembers;
-import com.example.realtimetaskmanagement.reps.ProjectMemberRep;
-import com.example.realtimetaskmanagement.service.ProjectMemberService;
-import com.example.realtimetaskmanagement.service.ProjectService;
+import com.example.realtimetaskmanagement.service.normalservices.ProjectMemberService;
+import com.example.realtimetaskmanagement.service.normalservices.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

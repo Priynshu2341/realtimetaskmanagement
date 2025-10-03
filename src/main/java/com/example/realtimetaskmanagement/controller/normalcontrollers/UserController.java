@@ -1,8 +1,8 @@
-package com.example.realtimetaskmanagement.controller;
+package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 import com.example.realtimetaskmanagement.dto.UserDTO;
 import com.example.realtimetaskmanagement.entity.Users;
-import com.example.realtimetaskmanagement.service.UserService;
+import com.example.realtimetaskmanagement.service.normalservices.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 

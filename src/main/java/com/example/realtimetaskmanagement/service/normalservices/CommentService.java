@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.service;
+package com.example.realtimetaskmanagement.service.normalservices;
 
 import com.example.realtimetaskmanagement.entity.Comment;
 import com.example.realtimetaskmanagement.entity.Task;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

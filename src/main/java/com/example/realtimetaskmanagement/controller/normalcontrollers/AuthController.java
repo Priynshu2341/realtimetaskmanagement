@@ -1,18 +1,16 @@
-package com.example.realtimetaskmanagement.controller;
+package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 import com.example.realtimetaskmanagement.dto.LoginReqDto;
 import com.example.realtimetaskmanagement.dto.LoginResponseDTO;
-import com.example.realtimetaskmanagement.dto.UserDTO;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.security.JwtUtils;
-import com.example.realtimetaskmanagement.service.UserService;
+import com.example.realtimetaskmanagement.service.normalservices.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
