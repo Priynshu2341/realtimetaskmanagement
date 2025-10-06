@@ -1,10 +1,10 @@
 package com.example.realtimetaskmanagement.dto;
 
-
 import lombok.Data;
 
 @Data
-public class LoginReqDto {
+public class TaskReqDTO {
+    private String title;
+    private String description;
     private String username;
-    private String password;
 }

@@ -11,9 +11,13 @@ import com.example.realtimetaskmanagement.service.normalservices.TaskService;
 import com.example.realtimetaskmanagement.service.pagingservice.PagingTaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pagingTask")
@@ -38,7 +42,7 @@ public class PagingTaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/findByProjectIdPaged")
+    @GetMapping("/findByProjectIdPaged/{projectId}")
     public ResponseEntity<?> findTaskByProjectIdPaged(
             @PathVariable Long projectId,
             @RequestParam(defaultValue = "0") int page,
@@ -47,7 +51,26 @@ public class PagingTaskController {
         Project project = projectService.getProjectById(projectId)
                 .orElseThrow(() -> new RuntimeException("Invalid Project ID"));
         Page<Task> tasks = taskService.getTaskByProject(project.getId(), page, size);
-        return ResponseEntity.ok(tasks);
+        List<TaskDTO> taskDTOS = tasks.getContent().stream().map(
+                task -> new TaskDTO(
+                        task.getId(),
+                        task.getTitle(),
+                        task.getDescription(),
+                        task.getPriority().toString(),
+                        task.getStatus().toString(),
+                        task.getDueDate(),
+                        task.getAssignee().getUsername(),
+                        task.getProject().getId().toString()
+                )
+        ).toList();
+
+        Page<TaskDTO> taskDTOS1 = new PageImpl<>(
+                taskDTOS,
+                tasks.getPageable(),
+                tasks.getTotalElements()
+        );
+
+        return ResponseEntity.ok(taskDTOS1);
     }
 
     @GetMapping("/filterPaged")

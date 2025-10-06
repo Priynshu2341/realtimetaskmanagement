@@ -27,7 +27,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody Users users) {
         userService.createUser(users);
         return ResponseEntity.ok("User Creation Success");

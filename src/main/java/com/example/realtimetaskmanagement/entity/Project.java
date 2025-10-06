@@ -29,7 +29,7 @@ public class Project {
     private LocalDateTime createdAt;
 
 
-    private LocalDateTime endDate;
+    private LocalDateTime endDate ;
 
     @ManyToOne
     @JoinColumn(name = "createdBy")

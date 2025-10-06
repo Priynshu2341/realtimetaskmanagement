@@ -2,6 +2,7 @@ package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 
 import com.example.realtimetaskmanagement.dto.TaskDTO;
+import com.example.realtimetaskmanagement.dto.TaskReqDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Task;
 import com.example.realtimetaskmanagement.entity.Users;
@@ -29,7 +30,7 @@ public class TaskController {
 
 
     @PostMapping("/create/{projectId}")
-    public ResponseEntity<?> createTask(@PathVariable Long projectId, @RequestBody TaskDTO task) {
+    public ResponseEntity<?> createTask(@PathVariable Long projectId, @RequestBody TaskReqDTO task) {
         Task task1 = new Task();
         task1.setDescription(task.getDescription());
         task1.setTitle(task.getTitle());
