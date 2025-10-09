@@ -16,8 +16,8 @@ import java.util.Date;
 public class JwtUtils {
 
     private static final String JWT_SECRET = "jwtSecret12312435212312asdasdsaffdgfdger12e12123e123";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 6000; // 1 minute
-    private static final long REFRESH_TOKEN_VALIDITY = 1000 * 60 * 60 * 24 * 7;
+    private static final long EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 7;; // 1 minute
+    private static final long REFRESH_TOKEN_VALIDITY =  1000L * 60 * 60 * 24 * 30;
 
     private final Key signingKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes());
 

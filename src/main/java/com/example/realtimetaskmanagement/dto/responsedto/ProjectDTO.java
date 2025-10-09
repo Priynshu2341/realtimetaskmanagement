@@ -1,10 +1,12 @@
-package com.example.realtimetaskmanagement.dto;
+package com.example.realtimetaskmanagement.dto.responsedto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class ProjectDTO {
     private LocalDateTime endDate;
     private String description;
     private String createdByUsername;
+    private List<String> projectMembersUsername = new ArrayList<>();
 }

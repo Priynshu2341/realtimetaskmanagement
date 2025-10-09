@@ -26,4 +26,9 @@ public class ProjectService {
     public Optional<Project> getProjectById(Long id){
         return projectRepository.findById(id);
     }
+
+    public void deleteProjectByID(Long projectId){
+        Project project =projectRepository.findById(projectId).orElseThrow(()-> new RuntimeException("Invalid Project Id"));
+        projectRepository.delete(project);
+    }
 }

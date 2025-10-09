@@ -1,14 +1,15 @@
-package com.example.realtimetaskmanagement.dto;
+package com.example.realtimetaskmanagement.dto.responsedto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentDTO {
+@Data
+public class CommentResponseDTO {
+    private Long id;
     private String content;
     private String username;
+    private String createdAt;
 }

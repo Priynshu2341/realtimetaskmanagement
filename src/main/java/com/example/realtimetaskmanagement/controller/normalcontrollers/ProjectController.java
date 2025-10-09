@@ -1,6 +1,5 @@
 package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
-import com.example.realtimetaskmanagement.dto.ProjectDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.service.normalservices.ProjectService;
@@ -30,14 +29,14 @@ public class ProjectController {
 
         Project saved = projectService.createProject(project);
 
-        ProjectDTO dto = new ProjectDTO();
+        Project dto = new Project();
         dto.setId(saved.getId());
         dto.setTitle(saved.getTitle());
         dto.setDescription(saved.getDescription());
         dto.setCreatedAt(saved.getCreatedAt());
         dto.setEndDate(saved.getEndDate());
-        dto.setCreatedByUsername(user.getUsername());
-
+        dto.setCreatedBy(user);
+        dto.setMembers(saved.getMembers());
         return ResponseEntity.ok(dto);
     }
 
@@ -47,6 +46,12 @@ public class ProjectController {
         return ResponseEntity.ok(projects);
 
 
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProjectById(@PathVariable Long id) {
+        projectService.deleteProjectByID(id);
+        return ResponseEntity.ok("Project Deleted");
     }
 
 }

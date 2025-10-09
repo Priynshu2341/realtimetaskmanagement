@@ -1,6 +1,6 @@
 package com.example.realtimetaskmanagement.controller.pagingcontrollers;
 
-import com.example.realtimetaskmanagement.dto.ProjectDTO;
+import com.example.realtimetaskmanagement.dto.responsedto.ProjectDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.reps.UserRepository;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/paging/project")
@@ -36,7 +35,10 @@ public class PagingProjectController {
                         project.getCreatedAt(),
                         project.getEndDate(),
                         project.getDescription(),
-                        project.getCreatedBy().getUsername()
+                        project.getCreatedBy().getUsername(),
+                        project.getMembers().stream().map(
+                                projectMembers -> projectMembers.getUsers().getUsername()
+                        ).toList()
                 )
         ).toList();
         Page<ProjectDTO> dtoPage = new PageImpl<>(

@@ -1,7 +1,6 @@
 package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
-import com.example.realtimetaskmanagement.dto.CommentDTO;
-import com.example.realtimetaskmanagement.dto.CommentResponseDTO;
+import com.example.realtimetaskmanagement.dto.responsedto.CommentDTO;
 import com.example.realtimetaskmanagement.entity.Comment;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.reps.CommentRepository;
@@ -31,15 +30,15 @@ public class CommentController {
         Comment savedComment = commentService.addCommentByUser(taskId, comment, commentDTO.getUsername());
         return ResponseEntity.ok(Map.of(
                 "message", "Comment Saved",
-                "Comment", new CommentResponseDTO(savedComment.getContent(), savedComment.getUsers().getUsername())
+                "Comment", new CommentDTO(savedComment.getContent(), savedComment.getUsers().getUsername())
         ));
     }
 
     @GetMapping("/getComments/{id}")
     public ResponseEntity<?> getCommentsByTask(@PathVariable Long id) {
         List<Comment> comments = commentService.getAllCommentForTask(id);
-        List<CommentResponseDTO> responseDTOS = comments.stream().map(
-                comment -> new CommentResponseDTO(
+        List<CommentDTO> responseDTOS = comments.stream().map(
+                comment -> new CommentDTO(
                         comment.getContent(),
                         comment.getUsers().getUsername()
                 )

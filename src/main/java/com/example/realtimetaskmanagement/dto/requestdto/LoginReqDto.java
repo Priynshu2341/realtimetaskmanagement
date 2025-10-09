@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.dto;
+package com.example.realtimetaskmanagement.dto.requestdto;
 
 
 import lombok.Data;

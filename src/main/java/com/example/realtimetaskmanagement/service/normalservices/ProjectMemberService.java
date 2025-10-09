@@ -20,14 +20,14 @@ public class ProjectMemberService {
     private final ProjectMemberRep projectMemberRep;
     private final ProjectRepository projectRepository;
 
-    public ProjectMembers addMember(Long projectId, String username, RoleType roleType){
+    public ProjectMembers addMember(Long projectId, String username){
         Project project = projectRepository.findById(projectId).orElseThrow(()-> new RuntimeException("Invalid Project Id"));
         Users users = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("Invalid Username"));
         projectMemberRep.findByProjectAndUsers(project,users).ifPresent(pm-> {throw new RuntimeException("User Already in Project"); });
         ProjectMembers projectMembers = new ProjectMembers();
         projectMembers.setUsers(users);
         projectMembers.setProject(project);
-        projectMembers.setRoleType(roleType);
+        projectMembers.setRoleType(RoleType.Member);
         return projectMemberRep.save(projectMembers);
     }
 

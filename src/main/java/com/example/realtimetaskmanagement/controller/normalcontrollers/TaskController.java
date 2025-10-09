@@ -1,8 +1,7 @@
 package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
 
-import com.example.realtimetaskmanagement.dto.TaskDTO;
-import com.example.realtimetaskmanagement.dto.TaskReqDTO;
+import com.example.realtimetaskmanagement.dto.requestdto.TaskReqDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Task;
 import com.example.realtimetaskmanagement.entity.Users;

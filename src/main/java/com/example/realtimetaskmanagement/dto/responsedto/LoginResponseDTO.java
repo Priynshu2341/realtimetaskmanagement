@@ -1,4 +1,4 @@
-package com.example.realtimetaskmanagement.dto;
+package com.example.realtimetaskmanagement.dto.responsedto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,4 +11,5 @@ public class LoginResponseDTO {
 
     private String accessToken;
     private String refreshToken;
+    private UserResponseDTO user;
 }

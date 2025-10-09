@@ -1,10 +1,5 @@
-package com.example.realtimetaskmanagement.dto;
+package com.example.realtimetaskmanagement.dto.responsedto;
 
-import com.example.realtimetaskmanagement.entity.Project;
-import com.example.realtimetaskmanagement.entity.Task;
-import com.example.realtimetaskmanagement.entity.Users;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

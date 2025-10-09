@@ -1,23 +1,20 @@
 package com.example.realtimetaskmanagement.controller.pagingcontrollers;
 
-import com.example.realtimetaskmanagement.dto.TaskDTO;
+import com.example.realtimetaskmanagement.dto.responsedto.TaskDTO;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Task;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.reps.TaskRepository;
 import com.example.realtimetaskmanagement.reps.UserRepository;
 import com.example.realtimetaskmanagement.service.normalservices.ProjectService;
-import com.example.realtimetaskmanagement.service.normalservices.TaskService;
 import com.example.realtimetaskmanagement.service.pagingservice.PagingTaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pagingTask")

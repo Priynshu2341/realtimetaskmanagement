@@ -25,5 +25,5 @@ public class ProjectMembers {
     @JsonIgnore
     private Users users;
 
-    private RoleType roleType = RoleType.USER;
+    private RoleType roleType = RoleType.Member;
 }

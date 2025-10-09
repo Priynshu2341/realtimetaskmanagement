@@ -1,7 +1,8 @@
 package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
-import com.example.realtimetaskmanagement.dto.LoginReqDto;
-import com.example.realtimetaskmanagement.dto.LoginResponseDTO;
+import com.example.realtimetaskmanagement.dto.requestdto.LoginReqDto;
+import com.example.realtimetaskmanagement.dto.responsedto.LoginResponseDTO;
+import com.example.realtimetaskmanagement.dto.responsedto.UserResponseDTO;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.security.JwtUtils;
 import com.example.realtimetaskmanagement.service.normalservices.UserService;
@@ -46,7 +47,9 @@ public class AuthController {
             String refreshToken = jwtUtils.generateRefreshToken(user);
             user.setRefreshToken(refreshToken);
             userService.saveUser(user);
-            return ResponseEntity.ok(new LoginResponseDTO(accessToken, refreshToken));
+            return ResponseEntity.ok(new LoginResponseDTO(accessToken, refreshToken, new UserResponseDTO(
+                    user.getUsername(), user.getRoleType().toString()
+            )));
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("SomeThing Went Wrong");
@@ -72,6 +75,7 @@ public class AuthController {
         }
     }
 
+
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@RequestBody Map<String, String> request) throws Exception {
         try {
@@ -90,7 +94,9 @@ public class AuthController {
 
             String accessToken = jwtUtils.generateToken(user);
             userService.saveUser(user);
-            return ResponseEntity.ok().body(new LoginResponseDTO(accessToken, refreshToken));
+            return ResponseEntity.ok().body(new LoginResponseDTO(accessToken, refreshToken, new UserResponseDTO(
+                    username, user.getRoleType().toString()
+            )));
 
         } catch (Exception e) {
             return ResponseEntity.status(401).body("Invalid Username or Password " + e.getMessage());

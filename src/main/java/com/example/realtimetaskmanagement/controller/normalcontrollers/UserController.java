@@ -1,6 +1,6 @@
 package com.example.realtimetaskmanagement.controller.normalcontrollers;
 
-import com.example.realtimetaskmanagement.dto.UserDTO;
+import com.example.realtimetaskmanagement.dto.responsedto.UserDTO;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.service.normalservices.UserService;
 import lombok.RequiredArgsConstructor;
