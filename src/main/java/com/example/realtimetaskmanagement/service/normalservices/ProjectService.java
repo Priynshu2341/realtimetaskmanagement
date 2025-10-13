@@ -3,6 +3,8 @@ package com.example.realtimetaskmanagement.service.normalservices;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.reps.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,20 +17,23 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
 
 
-    public Project createProject(Project project){
+    @CacheEvict(value = {"allProjects", "projectsPaged"}, allEntries = true)
+    public Project createProject(Project project) {
         return projectRepository.save(project);
     }
 
-    public List<Project> getAllProject(){
+    @Cacheable(value = "allProjects")
+    public List<Project> getAllProject() {
         return projectRepository.findAll();
     }
 
-    public Optional<Project> getProjectById(Long id){
+    public Optional<Project> getProjectById(Long id) {
         return projectRepository.findById(id);
     }
 
-    public void deleteProjectByID(Long projectId){
-        Project project =projectRepository.findById(projectId).orElseThrow(()-> new RuntimeException("Invalid Project Id"));
+    @CacheEvict(value = {"allProjects", "projectsPaged"}, allEntries = true)
+    public void deleteProjectByID(Long projectId) {
+        Project project = projectRepository.findById(projectId).orElseThrow(() -> new RuntimeException("Invalid Project Id"));
         projectRepository.delete(project);
     }
 }

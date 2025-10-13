@@ -28,6 +28,7 @@ public class TaskController {
     private final TaskRepository taskRepository;
 
 
+
     @PostMapping("/create/{projectId}")
     public ResponseEntity<?> createTask(@PathVariable Long projectId, @RequestBody TaskReqDTO task) {
         Task task1 = new Task();
@@ -94,8 +95,8 @@ public class TaskController {
             @RequestParam(required = false) Task.Status status,
             @RequestParam(required = false) Task.Priority priority,
             @RequestParam(required = false) String username
-    ){
-        List<Task> tasks = taskService.filter(status,priority,username);
+    ) {
+        List<Task> tasks = taskService.filter(status, priority, username);
         return ResponseEntity.ok(tasks);
     }
 

@@ -11,6 +11,7 @@ import com.example.realtimetaskmanagement.service.pagingservice.PagingTaskServic
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,24 +48,12 @@ public class PagingTaskController {
     ) {
         Project project = projectService.getProjectById(projectId)
                 .orElseThrow(() -> new RuntimeException("Invalid Project ID"));
-        Page<Task> tasks = taskService.getTaskByProject(project.getId(), page, size);
-        List<TaskDTO> taskDTOS = tasks.getContent().stream().map(
-                task -> new TaskDTO(
-                        task.getId(),
-                        task.getTitle(),
-                        task.getDescription(),
-                        task.getPriority().toString(),
-                        task.getStatus().toString(),
-                        task.getDueDate(),
-                        task.getAssignee().getUsername(),
-                        task.getProject().getId().toString()
-                )
-        ).toList();
-
+        List<TaskDTO> tasks = taskService.getTaskByProject(project.getId(), page, size);
+        long totalElements = taskRepository.count();
         Page<TaskDTO> taskDTOS1 = new PageImpl<>(
-                taskDTOS,
-                tasks.getPageable(),
-                tasks.getTotalElements()
+                tasks,
+                PageRequest.of(page, size),
+                totalElements
         );
 
         return ResponseEntity.ok(taskDTOS1);

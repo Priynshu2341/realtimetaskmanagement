@@ -17,8 +17,5 @@ public class TaskDTO {
     private String status;
     private LocalDateTime dueDate;
     private String assignee;
-    private String projectId;
-
-
-
+    private Long projectId;
 }

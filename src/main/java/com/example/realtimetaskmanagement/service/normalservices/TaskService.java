@@ -3,12 +3,15 @@ package com.example.realtimetaskmanagement.service.normalservices;
 import com.example.realtimetaskmanagement.entity.Project;
 import com.example.realtimetaskmanagement.entity.Task;
 import com.example.realtimetaskmanagement.entity.Users;
+import com.example.realtimetaskmanagement.reps.ProjectRepository;
 import com.example.realtimetaskmanagement.reps.TaskRepository;
 import com.example.realtimetaskmanagement.reps.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -17,12 +20,26 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final ProjectService projectService;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ProjectRepository projectRepository;
+
+    public void clearTaskCacheForProject(Long projectId) {
+        String hashKey = "taskPaged";
+        Set<Object> fields = redisTemplate.opsForHash().keys(hashKey);
+        List<Object> fieldsToDelete = fields.stream()
+                .filter(f -> f.toString().startsWith(projectId + "-"))
+                .toList();
+        if (!fieldsToDelete.isEmpty()) {
+            redisTemplate.opsForHash().delete(hashKey, fieldsToDelete.toArray());
+        }
+    }
 
     public Task createTask(Long projectId, Task task, String assigneeUsername) {
         Project project = projectService.getProjectById(projectId).orElseThrow(() -> new RuntimeException("Invalid Project Id"));
         Users userAssignee = userRepository.findByUsername(assigneeUsername).orElseThrow(() -> new RuntimeException("Invalid Username"));
         task.setAssignee(userAssignee);
         task.setProject(project);
+        clearTaskCacheForProject(projectId);
         return taskRepository.save(task);
     }
 
@@ -66,7 +83,6 @@ public class TaskService {
         }
         return taskRepository.findAll();
     }
-
 
 
 }
