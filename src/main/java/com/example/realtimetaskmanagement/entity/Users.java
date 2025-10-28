@@ -26,14 +26,17 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
+    private String providerId;
+    private String providerType;
 
     @Enumerated(value = EnumType.STRING)
     private RoleType roleType = RoleType.USER;
@@ -47,7 +50,7 @@ public class Users implements UserDetails {
     @OneToMany(mappedBy = "assignee")
     private List<Task> tasksAssigned = new ArrayList<>();
 
-    @OneToMany(mappedBy = "users",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectMembers> memberships = new ArrayList<>();
 
     @Override

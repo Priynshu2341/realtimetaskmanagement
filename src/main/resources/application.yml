@@ -1,0 +1,5 @@
+ spring.security.oauth2.client:
+   registration:
+    github:
+      client-id: Ov23liSphyOMS46T9CD2
+      client-secret: 815248cf87fa77ae9bb31499889db5f33d0c33cf
