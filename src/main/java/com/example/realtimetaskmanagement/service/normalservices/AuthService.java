@@ -47,7 +47,7 @@ public class AuthService {
             if (email != null && !email.isBlank() && !email.equals(existingUser.getEmail())) {
                 existingUser.setEmail(email);
             }
-            finalUser = existingUser; // ✅ always assigned
+            finalUser = existingUser;
         } else {
             throw new BadCredentialsException(
                     "Email already registered using another provider: " + emailUser.getProviderType()
