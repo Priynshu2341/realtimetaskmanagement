@@ -1,5 +1,11 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-COPY ./build/libs/*.jar app.jar
+COPY . .
+RUN chmod +x gradlew
+RUN ./gradlew clean bootJar --no-daemon
+
+FROM eclipse-temurin:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
