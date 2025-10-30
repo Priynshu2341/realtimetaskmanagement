@@ -45,3 +45,17 @@ spring:
 
 server:
   port: 8080
+
+  # OAuth2 GitHub Login
+  spring.security.oauth2.client.registration.github.client-id=Ov23liSphyOMS46T9CD2
+  spring.security.oauth2.client.registration.github.client-secret=815248cf87fa77ae9bb31499889db5f33d0c33cf
+  spring.security.oauth2.client.registration.github.scope=read:user,user:email
+  spring.security.oauth2.client.registration.github.redirect-uri={baseUrl}/login/oauth2/code/{registrationId}
+  spring.security.oauth2.client.registration.github.authorization-grant-type=authorization_code
+  spring.security.oauth2.client.registration.github.client-name=GitHub
+
+  spring.security.oauth2.client.provider.github.authorization-uri=https://github.com/login/oauth/authorize
+  spring.security.oauth2.client.provider.github.token-uri=https://github.com/login/oauth/access_token
+  spring.security.oauth2.client.provider.github.user-info-uri=https://api.github.com/user
+  spring.security.oauth2.client.provider.github.user-name-attribute=id
+
