@@ -1,5 +1,47 @@
- spring.security.oauth2.client:
-   registration:
-    github:
-      client-id: Ov23liSphyOMS46T9CD2
-      client-secret: 815248cf87fa77ae9bb31499889db5f33d0c33cf
+spring:
+  application:
+    name: Real-time-Task-Management
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mainuser
+    username: postgres
+    password: Kunglao@2341
+    driver-class-name: org.postgresql.Driver
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+  cache:
+    type: none
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    enabled: true
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23liSphyOMS46T9CD2
+            client-secret: 815248cf87fa77ae9bb31499889db5f33d0c33cf
+            scope: read:user, user:email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-name: GitHub
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: id
+
+server:
+  port: 8080

@@ -1,0 +1,24 @@
+# Ignore build output but keep the JAR
+build/*
+!build/libs/
+
+# Gradle/Maven
+.gradle
+.mvn
+!gradlew
+!gradlew.bat
+!gradle/wrapper
+
+# Git
+.git
+.gitignore
+
+# IDEs
+.idea
+.vscode
+
+# OS files
+.DS_Store
+
+# Logs or temp files
+*.log
