@@ -3,9 +3,9 @@ spring:
     name: Real-time-Task-Management
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/mainuser
-    username: postgres
-    password: Kunglao@2341
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   data:
