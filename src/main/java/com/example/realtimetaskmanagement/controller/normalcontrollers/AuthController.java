@@ -6,7 +6,9 @@ import com.example.realtimetaskmanagement.dto.responsedto.UserResponseDTO;
 import com.example.realtimetaskmanagement.entity.Users;
 import com.example.realtimetaskmanagement.security.JwtUtils;
 import com.example.realtimetaskmanagement.service.normalservices.UserService;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -88,20 +91,22 @@ public class AuthController {
             String username = jwtUtils.extractUsername(refreshToken);
 
             Users user = userService.getUserByUsername(username);
-            if (!refreshToken.equals(user.getRefreshToken())) {
-                throw new Exception("Invalid refresh token");
+            if (refreshToken.startsWith("Bearer ")) refreshToken = refreshToken.substring(7);
+            String storedToken = user.getRefreshToken();
+            if (storedToken == null || !storedToken.equals(refreshToken)) {
+                throw new JwtException("Refresh token mismatch or already rotated");
             }
-
             String accessToken = jwtUtils.generateToken(user);
+            String newRefreshToken = jwtUtils.generateRefreshToken(user);
+            user.setRefreshToken(newRefreshToken);
             userService.saveUser(user);
-            return ResponseEntity.ok().body(new LoginResponseDTO(accessToken, refreshToken, new UserResponseDTO(
+            return ResponseEntity.ok().body(new LoginResponseDTO(accessToken, newRefreshToken, new UserResponseDTO(
                     username, user.getRoleType().toString()
             )));
 
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Invalid Username or Password " + e.getMessage());
+            return ResponseEntity.status(401).body("Invalid or expired refresh token:" + e.getMessage());
         }
     }
-
 
 }

@@ -31,26 +31,10 @@ public class PagingProjectController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        List<Project> projects = pagingProjectService.getAllProjectPaged(page, size);
+        List<ProjectDTO> projects = pagingProjectService.getAllProjectPaged(page, size);
         long totalElements = projectRepository.count();
-        List<ProjectDTO> projectDTOS = projects.stream().map(project -> {
-            List<String> memberUsernames = project.getMembers().stream()
-                    .map(member -> member.getUsers().getUsername())
-                    .toList();
-
-            return new ProjectDTO(
-                    project.getId(),
-                    project.getTitle(),
-                    project.getCreatedAt(),
-                    project.getEndDate(),
-                    project.getDescription(),
-                    project.getCreatedBy().getUsername(),
-                    memberUsernames
-            );
-        }).toList();
-
         Page<ProjectDTO> dtoPage = new PageImpl<>(
-                projectDTOS,
+                projects,
                 PageRequest.of(page, size),
                 totalElements
         );
